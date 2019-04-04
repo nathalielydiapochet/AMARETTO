@@ -4,12 +4,10 @@
 \alias{GeneSetDescription}
 \title{GeneSetDescription}
 \usage{
-GeneSetDescription(filename, MSIGDB)
+GeneSetDescription(filename)
 }
-\arguments{
-\item{filename}{The name of the gmt file.}
-
-\item{MSIGDB}{}
+\value{
+result
 }
 \description{
 GeneSetDescription

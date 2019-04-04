@@ -21,6 +21,7 @@
 #' @importFrom utils  write.table
 #' @importFrom tibble rownames_to_column
 #' @importFrom stats  p.adjust  phyper
+#' @importFrom knitr knit_meta
 #' @importFrom rmarkdown render
 #' @return result
 #' @export
@@ -81,7 +82,7 @@ AMARETTO_HTMLreport <- function(AMARETTOinit, AMARETTOresults,
         .packages = c("AMARETTO", "tidyverse", "DT", 
             "rmarkdown")) %dopar% {
         heatmap_module <- invisible(AMARETTO_VisualizeModule(AMARETTOinit, 
-            AMARETTOresults, CNV_matrix, MET_matrix, 
+            AMARETTOresults, ProcessedData, 
             SAMPLE_annotation = SAMPLE_annotation, 
             ID = ID, ModuleNr = ModuleNr))
         ModuleRegulators <- AMARETTOresults$RegulatoryPrograms[ModuleNr, 
@@ -185,6 +186,7 @@ AMARETTO_HTMLreport <- function(AMARETTOinit, AMARETTOresults,
             ModuleNr, ".rmd")
         file.copy(system.file("templates/TemplateReportModule.Rmd", 
             package = "AMARETTO"), modulemd)
+        knitr::knit_meta(class=NULL, clean = TRUE)
         rmarkdown::render(modulemd, output_file = paste0("module", 
             ModuleNr, ".html"), params = list(report_address = report_address, 
             ModuleNr = ModuleNr, heatmap_module = heatmap_module, 
